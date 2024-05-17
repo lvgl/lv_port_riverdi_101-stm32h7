@@ -48,7 +48,7 @@
 osThreadId_t lvglTickHandle;
 const osThreadAttr_t lvglTick_attributes = {
   .name = "lvglTick",
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityNormal1,	/* must run at higher priority than the lvglTimerHandle task! */
   .stack_size = 4* 1024
 };
 
@@ -56,7 +56,7 @@ osThreadId_t lvglTimerHandle;
 const osThreadAttr_t lvglTimer_attributes = {
   .name = "lvglTimer",
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 4* 1024
+  .stack_size = 8* 1024
 };
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -176,7 +176,7 @@ void LVGLTimer(void *argument)
   for(;;)
   {
     lv_timer_handler();
-    //osDelay(20);
+    osDelay(5);
   }
 }
 /* LVGL tick source */
@@ -184,8 +184,8 @@ void LVGLTick(void *argument)
 {
   for(;;)
   {
-    lv_tick_inc(10);
-    osDelay(10);
+    lv_tick_inc(5);
+    osDelay(5);
   }
 }
 /* USER CODE END Application */
