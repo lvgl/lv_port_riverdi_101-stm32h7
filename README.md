@@ -9,7 +9,7 @@ STM32 Embedded 10.1” display is all-in-one complete and open-platform solution
 You can purchase the 10.1-inch Riverdi STM32 Embedded Displays from several sources:
 
 - [Riverdi's website](https://riverdi.com/product/10-1-inch-lcd-display-capacitive-touch-panel-optical-bonding-uxtouch-stm32h7-rvt101hvsnwc00-b)
-- [Mouser](https://www.mouser.pl/c/?q=RVT101HVSNWC00)
+- [Mouser](https://www.mouser.com/c/?q=RVT101HVSNWC00)
 - [TME](https://www.tme.com/us/en-us/katalog/?queryPhrase=RVT101HVSNWC00) 
 
 ## Benchmark
@@ -17,7 +17,7 @@ You can purchase the 10.1-inch Riverdi STM32 Embedded Displays from several sour
 ### Buffer configuration
 The example is configured for 16-bit RGB565 color format. The project uses LVGL's `LV_DISPLAY_RENDER_MODE_DIRECT` mode with two full screen sized framebuffers in external SDRAM memory. In this mode LVGL renders directly into the framebuffer, and synchronizes the framebuffers (copies the updated areas into the back buffer). Framebuffers are switched in the flush callback. Direct mode is an efficient method if there is enough memory (SRAM or SDRAM) available for two full screen sized buffers.
 
-The buffer configuration can be found in the file [lv_port_riverdi_101-stm32h7/CM7/Core/Src/lvgl_port_display.c](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/CM7/Core/Src/lvgl_port_display.c).
+The buffer configuration can be found in the file [lv_port_riverdi_101-stm32h7/CM7/Core/Src/lvgl_port_display.c](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/blob/master/CM7/Core/Src/lvgl_port_display.c).
 
 TODO: update benchmark video and certificate links
 [![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/88fd9a26-ec84-4f7b-98e8-313cf6a2568f)](![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/cad4801b-928b-4b11-bb2a-8f987625acc9))
@@ -62,7 +62,8 @@ To be able to flash and debug your program you will need to purchase an SWD debu
 ### Run the project
 - Clone the project: `git clone --recursive https://github.com/lvgl/lv_port_riverdi_101-stm32h7`
 - Open *STM32CubeIDE* and import project:` File => Open Projects from File System... => Directory => Select the "riverdi-101-stm32h7-lvgl/STM32CubeIde" folder => Finish`
-- Build the project (for the best performance, please use *Release* configuration with *-O2* flag): `Project => Build all`
+- In the Project Explorer open the `riverdi-101-stm32h7-lvgl` folder, and select `riverdi-101-stm32h7-lvgl_CM7` subproject.
+- Build the project (for the best performance use *Release* configuration with *-O2* flag): `Project => Build Project`
 - Click the ![image](https://github.com/lvgl/lv_port_riverdi_70-stm32h7/assets/7599318/ad1ba904-f917-4e0c-97b3-1c1ca12cf185) Run button to flash the project
     
 ### Debugging
