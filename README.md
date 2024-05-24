@@ -1,11 +1,74 @@
-# LVGL port for the 10.1-inch Riverdi STM32 Embedded Displays (STM32H757XIH6)
+# LVGL ported to the 10.1-inch Riverdi STM32 Embedded Displays (STM32H757XIH6)
 
-This repository contains the __Light and Versatile Graphics Library (LVGL)__ port for the __10.1-inch Riverdi STM32 Embedded Displays__ with *STM32H757XIH6* MCU. It's ready-to-use project template which you can easily import into *STM32CubeIDE* and *STM32CubeMX* (to reconfigure selected peripherals). This project uses the master LVGL release (at the time or writing v9.1.1). It is based on the [LVGL example](https://github.com/riverdi/riverdi-101-stm32h7-lvgl) provided by Riverdi, but this repository is maintained by LVGL.
+## Overview
 
-For more info about LVGL (docs, API, tutorials) please visit [*https://lvgl.io/*](https://lvgl.io/) and [*https://github.com/lvgl/lvgl*](https://github.com/lvgl/lvgl)
+STM32 Embedded 10.1” display is all-in-one complete and open-platform solution being able to independently handle the visual layer of devices with the need for high computing performance. The STM32 Embedded Displays series are industrial-quality LCD-TFT solutions based on the STM32H757XIH6 microcontroller. It has been designed in a way that allows to meet most of the hardware and programming challenges faced by engineers, including access to all interfaces.
 
-![img1](/Docs/img_1.png)
+## Buy
 
+You can purchase the 10.1-inch Riverdi STM32 Embedded Displays from several sources:
+
+- [Riverdi's website](https://riverdi.com/product/10-1-inch-lcd-display-capacitive-touch-panel-optical-bonding-uxtouch-stm32h7-rvt101hvsnwc00-b)
+- [Mouser](https://www.mouser.pl/c/?q=RVT101HVSNWC00)
+- [TME](https://www.tme.com/us/en-us/katalog/?queryPhrase=RVT101HVSNWC00) 
+
+## Benchmark
+
+### Buffer configuration
+The example is configured for 16-bit RGB565 color format. The project uses LVGL's `LV_DISPLAY_RENDER_MODE_DIRECT` mode with two full screen sized framebuffers in external SDRAM memory. In this mode LVGL renders directly into the framebuffer, and synchronizes the framebuffers (copies the updated areas into the back buffer). Framebuffers are switched in the flush callback. Direct mode is an efficient method if there is enough memory (SRAM or SDRAM) available for two full screen sized buffers.
+
+The buffer configuration can be found in the file [lv_port_riverdi_101-stm32h7/CM7/Core/Src/lvgl_port_display.c](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/CM7/Core/Src/lvgl_port_display.c).
+
+TODO: update benchmark video and certificate links
+[![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/88fd9a26-ec84-4f7b-98e8-313cf6a2568f)](![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/cad4801b-928b-4b11-bb2a-8f987625acc9))
+
+## Specification
+### CPU and memory
+
+- **MCU** STM32H757XIH6 (Cortex-M7 + M4 core, 480MHz)
+- **RAM** 1MB internal, 8MB external (32 bit access)
+- **Flash** 2MB internal, 64MB external flash
+- **GPU** Chrom-ART (DMA2D)
+
+### Display
+
+- **Resolution** 1280x800
+- **Display size** 10.1"
+- **Interface** LVDS
+- **Color depth** 16bit
+- **Technology** IPS
+- **DPI** 150 px/inch
+- **Touch pad** Industrial Capacitive or no touch
+
+### Others
+
+- RS485, RS232
+- Expansion connector (40 GPIOs to access 2x I2C, 1x UART, 1x USART, 1x SPI, 1x USB, 7x PWMs, 2x DACs, 2x ADCs)
+- 2x CAN FD
+- RiBUS connector
+- USB
+- Haptic feedback driver output (DRV2605L)
+
+## Getting started
+To be able to flash and debug your program you will need to purchase an SWD debug probe which supports the ARM Cortex-M7 core, e.g the STMicro ST-Link V2/V3 or the Segger J-Link.
+
+### Hardware setup
+- Connect a 6-48V power supply to the POWER header on the board using the supplied cable. The board draws about 0.96A at 9V (our test board did not start up at 6V).
+- Connect a debug probe to the SWD header using the supplied cable.
+  
+### Software setup
+- Install [STM32 CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html) with processor support for the STM32H757XIH6.
+
+### Run the project
+- Clone the project: `git clone --recursive https://github.com/lvgl/lv_port_riverdi_70-stm32h7`
+- Open *STM32CubeIDE* and import project:` File => Open Projects from File System... => Directory => Select the "riverdi-70-stm32h7-lvgl/STM32CubeIde" folder => Finish`
+- Build the project (for the best performance, please use *Release* configuration with *-Ofast* flag): `Project => Build all`
+- Click the ![image](https://github.com/lvgl/lv_port_riverdi_70-stm32h7/assets/7599318/ad1ba904-f917-4e0c-97b3-1c1ca12cf185) Run button to flash the project
+    
+### Debugging
+- After building the project click the Debug button ![image](https://github.com/lvgl/lv_port_riverdi_70-stm32h7/assets/7599318/369e95fb-dbfb-44d8-9250-0a5f3f8bfc60) to flash the project. You will need to select the correct debug probe for the first run.
+
+## Notes
 This repository supports all configuration of 10.1-inch *Riverdi STM32 Embedded Displays*:
 
 * [*RVT101HVSNWC00-B*](https://riverdi.com/product/10-1-inch-lcd-display-capacitive-touch-panel-optical-bonding-uxtouch-stm32h7-rvt101hvsnwc00-b)
@@ -15,140 +78,8 @@ This repository supports all configuration of 10.1-inch *Riverdi STM32 Embedded 
 * [*RVT101HVSFWN00*](https://riverdi.com/product/10-1-inch-lcd-display-stm32h7-frame-rvt101hvsfwn00)
 * [*RVT101HVSNWN00*](https://riverdi.com/product/10-1-inch-lcd-display-stm32h7-rvt101hvsnwn00)
 
-For LVGL project templates for 5-inch and 7-inch *Riverdi STM32 Embedded Displays*, please visit:
+## Contribution and Support
 
-* [*riverdi-50-stm32u5-lvgl*](https://github.com/lvgl/lv_port_riverdi_stm32u5)
-* [*riverdi-70-stm32h7-lvgl*](https://github.com/lvgl/lv_port_riverdi_70-stm32h7)
+If you find any issues with the development board feel free to open an Issue in this repository. For LVGL related issues (features, bugs, etc) please use the main [lvgl repository](https://github.com/lvgl/lvgl).
 
-## How to import this project to STM32CubeIDE:
-
-[1] Clone this respository (do not forget about *--recursive* flag!):
-```
-git clone --recursive https://github.com/lvgl/lv_port_riverdi_101-stm32h7
-```
-[2] Open *STM32CubeIDE* and import project:
-```
-File => Open Projects from File System... => Directory => Select the "riverdi-101-stm32h7-lvgl/STM32CubeIde" folder => Finish
-```
-[3] Build the project (for the best performance, please use *Release* configuration with *-Ofast* flag):
-```
-Project => Build all
-```
-[4] Upload the firmware to the *Riverdi STM32 Embedded Display*
-
-## What is Riverdi STM32 Embedded Display?
-
-[*Riverdi’s Display STM32 Embedded*](https://riverdi.com/product-category/stm32-embedded-displays/?pr=26938) product series are a comprehensive solution for a variety of applications. With high resolution, high brightness, and a host of features, these displays are designed to meet the most demanding requirements.
-
-Riverdi offers a variety of STM32 touch screen displays, including a brand new 5-inch STM32 display modules in its top-tier embedded screen solutions. With the STM32 7-inch LCD and 10.1-inch STM32 TFT display already on the market, the Riverdi LCD Display STM32 Embedded series is the all-in-one HMI solution well-suited for the most demanding applications.
-
-The STM32 Embedded Displays are not just a product, they are an ecosystem based on the industrial-quality LCD-TFT displays with high-brightness, high-resolution, and industrial touchscreen, the performance and interfaces offered by the STM32 microcontrollers, and the comprehensive technical support with free software and libraries.
-
-## 10.1-inch Riverdi STM32 Embedded Display
-
-
-Main features of the 10.1-inch __Riverdi STM32 Embedded Display__:
-
-* 10.1-inch TFT display
-* 1280x800px resolution
-* High brightness 850cd/m2
-* Full viewing angles (IPS)
-* STM32H757XIH6 (2MB Flash, 1MB RAM) microcontroller
-* All STM32H7 interfaces
-* Optical bonding
-* Industrial projected capacitive touch screen
-* Black decorative cover glass
-* High quality – zero bad pixels
-* 64MB QSPI
-* 8MB SDRAM
-* TouchGFX and LVGL direct support
-* Power Supply: 6V-48V
-
-![img2](/Docs/img_2.png)
-
-* __RS485__
-* __RS232__
-* __Expansion connector__ - the board offers additional and independent GPIOs over a 40pin, 1.27mm male header. It provides direct access to the GPIOs of MCU STM32, that makes it possible to be easily extended by an addon board for specific application (2x I2C, 1x UART, 1x USART, 1x SPI, 1x USB, 7x PWMs, 2x DACs, 2x ADCs)
-* __Fully independent 2x CAN FD__ - applicable in industrial and automotive area
-* __Fast-programming SWD port__ - SWD connector allows to program STM32 and QSPI with customer’s applications. Riverdi developed the ST-LINK programming cable that is included in the STM32 Embedded Display sample package (single packing)
-* __RiBUS connector__ - in some applications there might be a need to connect a second display in one device. With the STM32 Embedded Display line it is very easy as these displays are equipped with Master RiBUS connector – universal interface to Riverdi’s intelligent displays. In this way, the second display does nots need an external host controller and 2 independent displays can be controlled by one STM32
-* __USB__ - can be configured to both Host and Device
-* __Haptic feedback driver output__ - a DRV2605L haptic driver on the board (on I2C1) can be used to drive ERM and LRA haptic motors. Enhances feedback and conveys useful information to the users
-
-## Specifications
-
-### CPU and memory
-
-- **MCU** STM32H757XIH6 (Cortex-M7 + M4 core, 480MHz)
-- **RAM** 1MB internal, 8MB external (32 bit access)
-- **Flash** 2MB internal, 64MB external flash
-- **GPU** Chrom-Art (DMA2D)
-
-### Display
-
-- **Resolution** 1280x800
-- **Display size** 10.1"
-- **Interface** LVDS
-- **Color depth** 24bit
-- **Technology** IPS
-- **DPI** 150 px/inch
-- **Touch pad** Industrial Capacitive or no touch
-
-## LVGL Certified Board
-
-<img src="https://lvgl.io/assets/images/cert_standard.png" alt="Standard LVGL certificate for Riverdi STM32 Embedded 10.1 display">
-
-The 10.1-inch Riverdi STM32 Embedded Display board earned Standard LVGL Board Certificate, which means that the device has a decent performance and quality.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/NGfRHC7HjAs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-## Performance
-
-The drivers are configured for standard double buffering. It means even is a single pixel changes on the screen, the whole screen is updated. 
-
-While the music was played the MCU as running at 100% and reached 20-22 FPS, which is really decent on this high resolution display.
-
-### Frame rate (FPS)
-
-Finally the average frame rate was 25 and it was mostly above 20.
-
-### Memory
-
-The 1280 x 800 display is likely one of the largest I've ever seen driven by a standard MCU. Such a large display necessitates a substantial amount of RAM for frame buffers and general rendering. However, the 10.1-inch Riverdi STM32 Embedded Display board rises to the challenge, offering all the power and memory needed to effectively utilize this exceptional display.
-
-In the video, LVGL was operating in 16-bit mode. This setup required 1280 x 800 x 2 bytes = 2MB for a single frame buffer. Given that the driver configuration used three frame buffers, there was still 2MB available in the 8MB external RAM, and the internal RAM was not utilized by the draw buffers or frame buffers at all.
-
-LVGL itself requires approximately 64kB RAM for the widgets (though the actual size varies depending on the specific user interface). Beyond this, the entire 1MB of internal RAM and the remaining 2MB of external RAM are available for the application. Additionally, images or fonts can be loaded into this space from an SD card or external flash.
-
-The 8MB external RAM is also capable of supporting two 32-bit frame buffers. Therefore, with an adjusted driver configuration, by sacrificing some memory, enhanced color depth can also be achieved.
-
-## Quality
-
-### Display
-This board comes with an IPS display so it has amazing viewing angles and brightness too. 
-
-![Viewing angles of the STM32 Embedded 10.1" display](/assets/cert_riverdi_STM32_embedded_10/display.webp)
-
-### Touchpad
-
-Riverdi's 10.1-inch STM32 Embedded Display can be ordered with an industrial grade capacitive touch pad or without touchpad as well.
-
-During our evaluation the touchpad was very accurate and we haven't found any issues with it.
-
-### Robustness
-
-This board is designed for integration into a final product, even in challenging environments. It features a durable build, a smooth front surface, pre-drilled mounting holes, and reliable connectors.
-
-## Conclusion
-
-Riverdi's 10.1-inch STM32 Embedded Display stands out as a high-caliber, professional device, tailored for serious industrial applications. Its exceptional quality is evident, aligning perfectly with the standards of a Professional certificate. The display boasts high brightness, excellent visibility, and vibrant colors, all complemented by an industrial-grade touch panel. These features are integrated into a robust and stable construction. At its core, the device is powered by a powerful and contemporary STM32H7 microcontroller unit (MCU).
-
-On the software front, it utilizes ST's renowned and well-established CubeIDE, ensuring reliability and performance. This display is an ideal choice for those seeking a combination of stability and high performance in industrial applications.
-
-## Buy now
-
-You can purchase the 10.1-inch Riverdi STM32 Embedded Displays from several sources:
-
-- [Riverdi's website](https://riverdi.com/product/10-1-inch-lcd-display-capacitive-touch-panel-optical-bonding-uxtouch-stm32h7-rvt101hvsnwc00-b)
-- [Mouser](https://www.mouser.pl/c/?q=RVT101HVSNWC00)
-- [TME](https://www.tme.com/us/en-us/katalog/?queryPhrase=RVT101HVSNWC00) 
+If you found a bug and found a solution too please send a Pull request. If you are new to Pull requests refer to [Our Guide](https://docs.lvgl.io/master/CONTRIBUTING.html#pull-request) to learn the basics.
