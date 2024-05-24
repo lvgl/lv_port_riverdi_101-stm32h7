@@ -60,9 +60,9 @@ To be able to flash and debug your program you will need to purchase an SWD debu
 - Install [STM32 CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html) with processor support for the STM32H757XIH6.
 
 ### Run the project
-- Clone the project: `git clone --recursive https://github.com/lvgl/lv_port_riverdi_70-stm32h7`
-- Open *STM32CubeIDE* and import project:` File => Open Projects from File System... => Directory => Select the "riverdi-70-stm32h7-lvgl/STM32CubeIde" folder => Finish`
-- Build the project (for the best performance, please use *Release* configuration with *-Ofast* flag): `Project => Build all`
+- Clone the project: `git clone --recursive https://github.com/lvgl/lv_port_riverdi_101-stm32h7`
+- Open *STM32CubeIDE* and import project:` File => Open Projects from File System... => Directory => Select the "riverdi-101-stm32h7-lvgl/STM32CubeIde" folder => Finish`
+- Build the project (for the best performance, please use *Release* configuration with *-O2* flag): `Project => Build all`
 - Click the ![image](https://github.com/lvgl/lv_port_riverdi_70-stm32h7/assets/7599318/ad1ba904-f917-4e0c-97b3-1c1ca12cf185) Run button to flash the project
     
 ### Debugging
