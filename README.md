@@ -19,8 +19,8 @@ The example is configured for 16-bit RGB565 color format. The project uses LVGL'
 
 The buffer configuration can be found in the file [lv_port_riverdi_101-stm32h7/CM7/Core/Src/lvgl_port_display.c](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/blob/master/CM7/Core/Src/lvgl_port_display.c).
 
-TODO: update benchmark video and certificate links
-[![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/88fd9a26-ec84-4f7b-98e8-313cf6a2568f)](![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/cad4801b-928b-4b11-bb2a-8f987625acc9))
+[![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/5e845b04-a75f-4f49-a20f-cd980b20df16)](https://www.youtube.com/watch?v=NGfRHC7HjAs))
+
 
 ## Specification
 ### CPU and memory
