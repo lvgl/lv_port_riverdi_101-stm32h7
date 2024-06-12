@@ -7,7 +7,7 @@
 #include "ltdc.h"
 #include "dma2d.h"
 
-#define DIRECT_MODE
+//#define DIRECT_MODE
 
 /**********************
  *  STATIC PROTOTYPES
@@ -23,6 +23,7 @@ static void disp_flush_complete (DMA2D_HandleTypeDef*);
  *  STATIC VARIABLES
  **********************/
 static lv_display_t * disp;
+static lv_thread_sync_t sync;
 
 #ifdef DIRECT_MODE
 #define LVGL_BUFFER_1_ADDR_AT_SDRAM	(0xD0000000)
@@ -45,12 +46,15 @@ void lvgl_display_init (void)
 	lv_display_set_buffers(disp, (void*) LVGL_BUFFER_1_ADDR_AT_SDRAM, (void*) LVGL_BUFFER_2_ADDR_AT_SDRAM, MY_DISP_HOR_RES * MY_DISP_VER_RES * 2, LV_DISPLAY_RENDER_MODE_DIRECT);
 	HAL_LTDC_SetAddress(&hltdc, (uint32_t)LVGL_BUFFER_2_ADDR_AT_SDRAM, 0);	// start with the second buffer: LVGL will render into the first buffer
 #else
-	lv_display_set_buffers(disp, (void*) LVGL_BUFFER_1_ADDR_AT_SDRAM, (void*) LVGL_BUFFER_2_ADDR_AT_SDRAM, MY_DISP_HOR_RES * MY_DISP_VER_RES * 2, LV_DISPLAY_RENDER_MODE_PARTIAL);
+	__attribute__((section(".my_ram_d2_data"))) static uint8_t buf1[288*1024];
+
+	lv_display_set_buffers(disp, (void*) buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
 
 	/* interrupt callback for DMA2D transfer */
 	hdma2d.XferCpltCallback = disp_flush_complete;
+//	lv_display_set_flush_wait_cb(disp, disp_flush_wait);
+//	lv_thread_sync_init(&sync);
 #endif
-
 	lv_display_set_flush_cb(disp, disp_flush);
 }
 
@@ -58,8 +62,7 @@ void lvgl_display_init (void)
  *   STATIC FUNCTIONS
  **********************/
 
-static void
-disp_flush (lv_display_t * display,
+static void disp_flush (lv_display_t * display,
             const lv_area_t * area,
             uint8_t * px_map)
 {
@@ -98,6 +101,8 @@ disp_flush (lv_display_t * display,
 static void
 disp_flush_complete (DMA2D_HandleTypeDef *hdma2d)
 {
+//	lv_thread_sync_signal_isr(&sync);
+
   lv_display_flush_ready(disp);
 }
 

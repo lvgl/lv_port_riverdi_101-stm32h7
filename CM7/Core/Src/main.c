@@ -195,6 +195,9 @@ int main(void)
   if (CSP_QUADSPI_Init() == HAL_OK)
     CSP_QSPI_EnableMemoryMappedMode();
 
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
+
   /* initialize LVGL framework */
   lv_init();
 
@@ -202,10 +205,12 @@ int main(void)
   lvgl_display_init();
   lvgl_touchscreen_init();
 
+  lv_tick_set_cb(HAL_GetTick);
+
   /* lvgl demo */
   lv_demo_widgets();
-  //lv_demo_music();
-  //lv_demo_benchmark();
+//  lv_demo_music();
+//  lv_demo_benchmark();
 
   /* pwm */
   if (HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1) != HAL_OK)
@@ -215,9 +220,6 @@ int main(void)
 
   /* Init scheduler */
   osKernelInitialize();
-
-  /* Call init function for freertos objects (in freertos.c) */
-  MX_FREERTOS_Init();
 
   /* Start scheduler */
   osKernelStart();
