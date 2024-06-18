@@ -4,6 +4,11 @@
 
 STM32 Embedded 10.1” display is all-in-one complete and open-platform solution being able to independently handle the visual layer of devices with the need for high computing performance. The STM32 Embedded Displays series are industrial-quality LCD-TFT solutions based on the STM32H757XIH6 microcontroller. It has been designed in a way that allows to meet most of the hardware and programming challenges faced by engineers, including access to all interfaces.
 
+## Benchmark
+We have used a 288kB partial buffer (115 lines, 1/7 display), a single frame buffer, and copied the rendered are with DMA2D. There is no synchronization to VSYNC, therefore some tearing is visible in some cases.
+
+[![Riverdi 10 1-inch STM32-cover](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/f41d6748-692d-4034-b2be-230ea9334ece)](https://www.youtube.com/watch?v=cGYKa0zVzQI)
+
 ## Buy
 
 You can purchase the 10.1-inch Riverdi STM32 Embedded Displays from several sources:
