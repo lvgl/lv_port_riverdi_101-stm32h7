@@ -33,7 +33,7 @@
         "https://raw.githubusercontent.com/lvgl/project-creator/master/meta/images/st/logo.svg",
         "https://raw.githubusercontent.com/lvgl/project-creator/master/meta/images/riverdi/logo.svg"
     ],
-    "image": "https://raw.githubusercontent.com/lvgl/lv_port_riverdi_101-stm32h7/board_images/riverdi-10.1-inch-STM32.webp",
+    "image": "https://raw.githubusercontent.com/lvgl/lv_port_riverdi_101-stm32h7/refs/heads/master/board_images/riverdi-10.1-inch-STM32.webp",
     "buy_now_links": ["https://riverdi.com/product/10-1-inch-lcd-display-capacitive-touch-panel-optical-bonding-uxtouch-stm32h7-rvt101hvsnwc00-b"],
     "branches": [
         "release/v9.2"
