@@ -10,7 +10,7 @@
         "CubeIDE"
     ],
     "hardware": {
-        "chipVendor": "STM32",
+        "chipVendor": "ST",
         "manufacturer": "Riverdi",
         "specs": {
             "MCU": "STM32H757XIH6  (Cortex-M7 480MHz, Cortex-M4 240MHz)",
