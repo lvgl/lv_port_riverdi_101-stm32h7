@@ -6,6 +6,7 @@
 #include "main.h"
 #include "ltdc.h"
 #include "dma2d.h"
+#include "lvgl/src/osal/lv_os_private.h"
 
 //#define DIRECT_MODE
 
